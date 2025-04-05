@@ -1,0 +1,23 @@
+<!--Joey Teahan and David McGlue DevOps CA2
+    index.html.erb -->
+
+<% content_for :title, "Tasks" %>
+
+<div class="container mt-5">
+  <% if notice %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+
+  <h1 class="mb-4">Tasks</h1>
+
+  <div id="tasks">
+    <% @tasks.each do |task| %>
+      <%= render task %>
+      <p>
+        <%= link_to "Show this task", task, class: "btn btn-outline-primary btn-sm" %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "Create a new task", new_task_path, class: "btn btn-primary mt-4" %>
+</div>

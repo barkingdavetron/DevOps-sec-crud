@@ -1,0 +1,41 @@
+<!--Joey Teahan and David McGlue DevOps CA2
+    _form.html.erb -->
+
+<%= form_with(model: task, local: true, class: "mt-4") do |form| %>
+  <% if task.errors.any? %>
+  <!--Start of the alert class-->
+    <div class="alert alert-danger">
+      <!--Cancelling the task from being created-->
+      <h4><%= pluralize(task.errors.count, "error") %> Stop this task from being saved:</h4>
+      <ul>
+        <% task.errors.each do |error| %>
+        <!--Error message-->
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--Title of the tasks-->
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+
+<!--Description of the tasks-->
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 4 %>
+  </div>
+
+
+<!--Input info-->
+  <div class="form-check mb-3">
+    <%= form.check_box :completed, class: "form-check-input" %>
+    <%= form.label :completed, class: "form-check-label" %>
+  </div>
+
+<!--To Save the task-->
+  <%= form.submit "Save Task", class: "btn btn-success" %>
+<% end %>

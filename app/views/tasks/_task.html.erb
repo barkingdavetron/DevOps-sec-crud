@@ -1,0 +1,12 @@
+<!--Joey Teahan and David McGlue DevOps CA2
+    _task.html.erb -->
+
+<div id="<%= dom_id task %>" class="card mb-3 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title"><%= task.title %></h5>
+    <p class="card-text"><%= task.description %></p>
+    <p class="card-text">
+      <small class="text-muted">Completed: <%= task.completed ? "✅" : "❌ No" %></small>
+    </p>
+  </div>
+</div>
