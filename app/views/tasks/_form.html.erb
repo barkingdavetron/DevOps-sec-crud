@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--Joey Teahan and David McGlue DevOps CA2
     _form.html.erb -->
 
@@ -10,12 +11,22 @@
       <ul>
         <% task.errors.each do |error| %>
         <!--Error message-->
+=======
+<%= form_with(model: task) do |form| %>
+  <% if task.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% task.errors.each do |error| %>
+>>>>>>> 3ce2e31bc0a40cd8c628492769c4ec0f0228e807
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+<<<<<<< HEAD
 <!--Title of the tasks-->
   <div class="mb-3">
     <%= form.label :title, class: "form-label" %>
@@ -38,4 +49,24 @@
 
 <!--To Save the task-->
   <%= form.submit "Save Task", class: "btn btn-success" %>
+=======
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.textarea :description %>
+  </div>
+
+  <div>
+    <%= form.label :completed, style: "display: block" %>
+    <%= form.checkbox :completed %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+>>>>>>> 3ce2e31bc0a40cd8c628492769c4ec0f0228e807
 <% end %>
