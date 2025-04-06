@@ -3,12 +3,15 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    if params[:category].present? && params[:category] != "All"
+      @tasks = Task.where(category: params[:category])
+    else
+      @tasks = Task.all
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
-  def show
-  end
+  def show; end
 
   # GET /tasks/new
   def new
@@ -16,8 +19,7 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tasks or /tasks.json
   def create
@@ -50,21 +52,21 @@ class TasksController < ApplicationController
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy!
-
     respond_to do |format|
-      format.html { redirect_to tasks_path, status: :see_other, notice: "Task was successfully destroyed." }
+      format.html { redirect_to tasks_path, status: :see_other, notice: "Task was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params.expect(:id))
+      @task = Task.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.expect(task: [ :title, :description, :completed ])
+      params.require(:task).permit(:title, :description, :completed, :category)
     end
 end

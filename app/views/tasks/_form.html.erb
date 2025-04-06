@@ -36,6 +36,13 @@
     <%= form.label :completed, class: "form-check-label" %>
   </div>
 
+<!--Category picker-->
+  <div class="mb-3">
+  <%= form.label :category, class: "form-label" %>
+  <%= form.select :category, ["Work", "Personal", "College", "Urgent", "Other"], prompt: "Select a category", class: "form-select" %>
+</div>
+
+
 <!--To Save the task-->
   <%= form.submit "Save Task", class: "btn btn-success" %>
 <% end %>

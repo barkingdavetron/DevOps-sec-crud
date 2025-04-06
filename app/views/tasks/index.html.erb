@@ -8,8 +8,16 @@
     <div class="alert alert-success"><%= notice %></div>
   <% end %>
 
+<!--Task Category's-->
   <h1 class="mb-4">Tasks</h1>
+  <%= form_with url: tasks_path, method: :get, local: true do %>
+  <%= select_tag :category,
+      options_for_select(["All", "Work", "Personal", "Urgent", "College", "Other"], params[:category]),
+      class: "form-select w-auto mb-3",
+      onchange: "this.form.submit();" %>
+<% end %>
 
+<!--Button that shows the tasks-->
   <div id="tasks">
     <% @tasks.each do |task| %>
       <%= render task %>
@@ -19,5 +27,7 @@
     <% end %>
   </div>
 
+<!--Button to create a new task-->
   <%= link_to "Create a new task", new_task_path, class: "btn btn-primary mt-4" %>
 </div>
+
