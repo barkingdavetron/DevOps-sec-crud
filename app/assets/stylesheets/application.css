@@ -3,7 +3,7 @@
   The styling of the dark mode function*/
 body.dark-mode {
     background-color: #121212;
-    color: #e0e0e0;
+    color: #bdbbbb;
     
   }
   
@@ -22,16 +22,16 @@ body.dark-mode {
     border-color: #0d6efd;
   }
 
-  body.dark-mode .text-muted {
-    color: #ffffff !important;
+  body.dark-mode text-muted {
+    color: #9a9999 !important;
   }
   
-  body.dark-mode .card-text {
-    color: #ffffff !important;
+  body.dark-mode card-text {
+    color: #9a9999 !important;
   }
 
-  body.dark-mode .h5 {
-    color: #ffffff !important;
+  body.dark-mode h5 {
+    color: #9a9999 !important;
   }
   
 
