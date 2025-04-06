@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+/*Joey Teahan and David McGlue DevOps CA2
+  application.css
+  The styling of the dark mode function*/
 body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
@@ -22,15 +24,3 @@ body.dark-mode {
   
   
   
-=======
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
->>>>>>> 3ce2e31bc0a40cd8c628492769c4ec0f0228e807
