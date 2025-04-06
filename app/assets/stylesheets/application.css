@@ -21,6 +21,21 @@ body.dark-mode {
     background-color: #0d6efd;
     border-color: #0d6efd;
   }
+
+  body.dark-mode .text-muted {
+    color: #ffffff !important;
+  }
+  
+  body.dark-mode .card-text {
+    color: #ffffff !important;
+  }
+
+  body.dark-mode .h5 {
+    color: #ffffff !important;
+  }
+  
+
+  
   
   
   
