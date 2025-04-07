@@ -62,6 +62,7 @@ jobs:
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate  # Ensure migrations are applied
+          bundle exec rails db:seed   # Apply any seed data if necessary
 
       # Run the tests
       - name: Run Tests
