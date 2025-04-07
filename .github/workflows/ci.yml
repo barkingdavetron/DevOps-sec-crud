@@ -44,35 +44,30 @@ jobs:
       - name: Run Rubocop (lint Ruby code)
         run: rubocop -f github
 
-  test:
-    runs-on: ubuntu-latest
+ test:
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: .ruby-version
+        bundler-cache: true
 
-      # Since you're using SQLite, remove PostgreSQL dependencies
-      - name: Set up database (SQLite)
-        run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+    # Set up database (SQLite) and apply migrations
+    - name: Set up database (SQLite)
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:migrate  # Ensure migrations are applied
 
-      - name: Run Tests
-        env:
-          RAILS_ENV: test
-        run: |
-          bundle exec rails test
-          
-      - name: Upload screenshots from failed system tests
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: tmp/screenshots
-          if-no-files-found: ignore
+    # Run the tests
+    - name: Run Tests
+      env:
+        RAILS_ENV: test
+      run: |
+        bundle exec rails test
+
+
