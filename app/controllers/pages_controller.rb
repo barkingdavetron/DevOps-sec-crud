@@ -6,8 +6,8 @@ class PagesController < ApplicationController
 
     @completion_rate = if @total_tasks > 0
                          ((@completed_tasks.to_f / @total_tasks) * 100).round
-                       else
+    else
                          0
-                       end
+    end
   end
 end
