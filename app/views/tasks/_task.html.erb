@@ -24,8 +24,9 @@
     </p>
     <!-- Deadline -->
     <p class="card-text">
-      <small class="text-muted">Deadline: <%= task.deadline.strftime("%B %d, %Y %H:%M") %></small>
-    </p>
+    <strong>Deadline:</strong>
+    <%= task.deadline.present? ? task.deadline.strftime("%B %d, %Y %H:%M") : "No deadline set" %>
+  </p>
     
     <!-- Category & Delete button in a flex row -->
     <div class="d-flex justify-content-between align-items-center">
