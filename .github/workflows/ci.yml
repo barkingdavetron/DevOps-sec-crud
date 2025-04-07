@@ -21,11 +21,11 @@ jobs:
 
       - name: Install Brakeman dependencies
         run: |
-          gem install brakeman  # Ensure brakeman is installed
-          
+          gem install brakeman # Ensure brakeman is installed
+
       - name: Make Brakeman executable
         run: |
-          chmod +x bin/brakeman  # Make sure brakeman is executable
+          chmod +x bin/brakeman || true  # Ensure brakeman is executable (ignore error if bin/brakeman doesn't exist)
           ruby -v  # Verify ruby is installed correctly
           
       - name: Run Brakeman (static analysis for Rails)
