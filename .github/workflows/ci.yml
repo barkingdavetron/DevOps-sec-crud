@@ -70,8 +70,8 @@ jobs:
       # Create the database and run migrations
       - name: Set up database (SQLite)
         run: |
-          bin/rails db:create
-          bin/rails db:migrate RAILS_ENV=test  # Ensure migrations are applied using bin/rails
+          rails db:create
+          rails db:migrate RAILS_ENV=test  # Ensure migrations are applied using bin/rails
 
       # Run the tests
       - name: Run Tests
