@@ -57,26 +57,22 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # Install Rails and SQLite3 dependencies
-      - name: Install Rails and SQLite3 dependencies
+      # Install necessary dependencies and SQLite
+      - name: Install dependencies and SQLite3
         run: |
-          gem install rails
           sudo apt-get update
           sudo apt-get install libsqlite3-dev -y
-
-      # Install bundle dependencies
-      - name: Install dependencies
-        run: bundle install
+          bundle install
 
       # Ensure bin/rails is executable
-      - name: Make bin/rails executable
+      - name: Ensure bin/rails is executable
         run: chmod +x bin/rails
 
-      # Set up database (SQLite) and apply migrations
-      - name: Set up database (SQLite)
+      # Create and migrate the database
+      - name: Set up database and run migrations (SQLite)
         run: |
           bundle exec rails db:create
-          bundle exec rails db:migrate  # Ensure migrations are applied
+          bundle exec rails db:migrate
 
       # Run the tests
       - name: Run Tests
