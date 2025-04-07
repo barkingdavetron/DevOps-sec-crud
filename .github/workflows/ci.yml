@@ -95,6 +95,6 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-              ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-219-157-142.compute-1.amazonaws.com "cd ~/DevOps-sec-crud && git pull origin main && bundle install && rails db:migrate RAILS_ENV=production"
+              ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-219-157-142.compute-1.amazonaws.com "cd ~/DevOps-sec-crud && git pull origin main && bundle install && rails db:migrate RAILS_ENV=production && nohup rails server -b 0.0.0.0 -e production &"
         env:
           EC2_HOST: ec2-13-219-157-142.compute-1.amazonaws.com  # Your EC2 instance DNS
