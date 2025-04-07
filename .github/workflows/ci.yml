@@ -68,6 +68,10 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
+      # Ensure bin/rails is executable
+      - name: Make bin/rails executable
+        run: chmod +x bin/rails
+
       # Set up database (SQLite) and apply migrations
       - name: Set up database (SQLite)
         run: |
