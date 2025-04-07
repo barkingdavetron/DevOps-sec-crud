@@ -21,10 +21,32 @@ jobs:
 
       - name: Run Brakeman (static analysis for Rails)
         run: |
+          chmod +x bin/brakeman  # This ensures brakeman has executable permissions
           if [ -f bin/brakeman ]; then
             bin/brakeman --no-pager
           else
             echo "Brakeman not installed. Skipping scan."
+          fi
+
+  scan_js:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run Importmap Audit
+        run: |
+          if [ -f bin/importmap ]; then
+            bin/importmap audit
+          else
+            echo "Importmap not found. Skipping JS audit."
           fi
 
   lint:
