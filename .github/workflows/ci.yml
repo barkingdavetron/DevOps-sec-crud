@@ -57,17 +57,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # Since you're using SQLite, remove PostgreSQL dependencies
       - name: Set up database (SQLite)
         run: |
-          sudo apt-get update
-          sudo apt-get install libpq-dev -y # This can be removed if using SQLite; it's just for PostgreSQL
+          bundle exec rails db:create
+          bundle exec rails db:migrate
 
       - name: Run Tests
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
           bundle exec rails test
           
       - name: Upload screenshots from failed system tests
