@@ -57,7 +57,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # Install Rails and SQLite dependencies
+      # Ensure that Rails and SQLite are installed
       - name: Install Rails and SQLite3 dependencies
         run: |
           gem install rails
