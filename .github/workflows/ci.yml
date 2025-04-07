@@ -22,14 +22,16 @@ jobs:
       - name: Install Brakeman dependencies
         run: |
           gem install brakeman  # Ensure brakeman is installed
-
+          
       - name: Make Brakeman executable
-        run: chmod +x bin/brakeman  # Make sure brakeman is executable
-
+        run: |
+          chmod +x bin/brakeman  # Make sure brakeman is executable
+          ruby -v  # Verify ruby is installed correctly
+          
       - name: Run Brakeman (static analysis for Rails)
         run: |
           if [ -f bin/brakeman ]; then
-            bin/brakeman --no-pager
+            ruby bin/brakeman --no-pager  # Use ruby to execute brakeman correctly
           else
             echo "Brakeman not installed. Skipping scan."
           fi
@@ -50,7 +52,7 @@ jobs:
       - name: Run Rubocop (lint Ruby code)
         run: |
           if [ -f bin/rubocop ]; then
-            bin/rubocop -f github
+            ruby bin/rubocop -f github  # Ensure rubocop is invoked with Ruby
           else
             echo "Rubocop not found. Skipping lint."
           fi
