@@ -31,11 +31,9 @@
 
   <!--added task deadline to project-->
 
-  <div class="mb-3">
   <%= form.label :deadline, "Deadline" %>
-  <%= form.datetime_select :deadline, { include_blank: true }, class: "form-control" %>
-</div>
-
+  <%= form.datetime_local_field :deadline, class: "form-control" %>
+  
 
 <!--Input info-->
   <div class="form-check mb-3">
