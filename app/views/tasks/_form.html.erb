@@ -29,6 +29,13 @@
     <%= form.text_area :description, class: "form-control", rows: 4 %>
   </div>
 
+  <!--added task deadline to project-->
+
+  <div class="mb-3">
+  <%= form.label :deadline, "Deadline" %>
+  <%= form.datetime_select :deadline, { include_blank: true }, class: "form-control" %>
+</div>
+
 
 <!--Input info-->
   <div class="form-check mb-3">
