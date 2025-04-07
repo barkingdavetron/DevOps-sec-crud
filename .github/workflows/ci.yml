@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  pull_request:
   push:
     branches: [ main ]
+  pull_request:
 
 jobs:
   scan_ruby:
@@ -19,18 +19,72 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Install Brakeman 7.0.2
-        run: |
-          gem install brakeman -v 7.0.2  # Ensure brakeman 7.0.2 is installed
-
-      - name: Make Brakeman executable
-        run: |
-          chmod +x bin/brakeman  # Ensure brakeman is executable
+      - name: Install Brakeman
+        run: gem install brakeman
 
       - name: Run Brakeman (static analysis for Rails)
+        run: brakeman --no-pager
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Install Rubocop
+        run: gem install rubocop
+
+      - name: Run Rubocop (lint Ruby code)
+        run: rubocop -f github
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        ports: ['5432:5432']
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Set up database
         run: |
-          if [ -f bin/brakeman ]; then
-            ruby bin/brakeman --no-pager  # Use ruby to execute brakeman correctly
-          else
-            echo "Brakeman not installed. Skipping scan."
-          fi
+          sudo apt-get update
+          sudo apt-get install libpq-dev -y
+          cp config/database.yml.github config/database.yml
+      - name: Run Tests
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rails test
+      - name: Upload screenshots from failed system tests
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: tmp/screenshots
+          if-no-files-found: ignore
