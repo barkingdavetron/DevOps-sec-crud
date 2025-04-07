@@ -56,20 +56,24 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-          
-# Set executable permissions for bin/rails
+
+      # Set executable permissions for bin/rails
       - name: Set execute permissions for bin/rails
         run: chmod +x bin/rails
+
+      # Install Ruby dependencies
+      - name: Install dependencies
+        run: bundle install
+
       # Set up database (SQLite) and apply migrations
       - name: Set up database (SQLite)
         run: |
-           bin/rails db:create
-           bin/rails db:migrate RAILS_ENV=test  # Ensure migrations are applied using bin/rails
-
+          bin/rails db:create
+          bin/rails db:migrate RAILS_ENV=test  # Ensure migrations are applied using bin/rails
 
       # Run the tests
       - name: Run Tests
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rails test
+          bin/rails test
