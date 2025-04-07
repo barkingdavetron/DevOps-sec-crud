@@ -56,7 +56,10 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
+          
+# Set executable permissions for bin/rails
+      - name: Set execute permissions for bin/rails
+        run: chmod +x bin/rails
       # Set up database (SQLite) and apply migrations
       - name: Set up database (SQLite)
         run: |
