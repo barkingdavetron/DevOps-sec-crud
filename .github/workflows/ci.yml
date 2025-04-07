@@ -76,7 +76,7 @@ jobs:
       - name: Set up database (SQLite)
         run: |
           bundle exec rails db:create
-          bundle exec bin/rails db:migrate  # Ensure migrations are applied
+          bundle exec rails db:migrate  # Ensure migrations are applied
 
       # Run the tests
       - name: Run Tests
