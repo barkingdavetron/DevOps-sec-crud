@@ -47,18 +47,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:14
-        ports: ['5432:5432']
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,11 +57,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Set up database
+      - name: Set up database (SQLite)
         run: |
           sudo apt-get update
-          sudo apt-get install libpq-dev -y
-          cp config/database.yml.github config/database.yml
+          sudo apt-get install libpq-dev -y # This can be removed if using SQLite; it's just for PostgreSQL
+
       - name: Run Tests
         env:
           RAILS_ENV: test
@@ -81,6 +69,7 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
           bundle exec rails test
+          
       - name: Upload screenshots from failed system tests
         if: failure()
         uses: actions/upload-artifact@v4
